@@ -1,11 +1,6 @@
 ﻿using Movie.Core.Model;
 using Movie.Core.Repository.Interface;
 using Movie.Core.Services.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Movie.Core.Services
 {
@@ -18,7 +13,7 @@ namespace Movie.Core.Services
             _movieRepository = movieRepository;
         }
 
-        public async Task<List<MovieEntity>> GetMovies()
+        public async Task<IEnumerable<MovieEntity>> GetMovies()
         {
             return await _movieRepository.GetAll();
         }

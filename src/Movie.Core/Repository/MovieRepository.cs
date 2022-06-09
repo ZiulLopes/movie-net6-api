@@ -10,13 +10,22 @@ namespace Movie.Core.Repository
 {
     public class MovieRepository : IMovieRepository
     {
-        public Task<IEnumerable<MovieEntity>> GetAll()
+        private readonly MovieDbContext _dbContext;
+
+        public MovieRepository(MovieDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
         }
-        public Task<IEnumerable<MovieEntity>> FindById(int id)
+
+        public async Task<IEnumerable<MovieEntity>> GetAll()
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => _dbContext.Movie.AsEnumerable());
+        }
+        public async Task<MovieEntity> FindById(int id)
+        {
+            var movie = await _dbContext.Movie.FindAsync(id);
+            if (movie == null) return null;
+            return await _dbContext.Movie.FindAsync(id);
         }
     }
 }
