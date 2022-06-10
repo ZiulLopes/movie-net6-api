@@ -10,7 +10,8 @@ namespace Movie.Core.Mapping
         public MappingProfile()
         {
             CreateMap<MovieRequest, MovieEntity>();
-            CreateMap<MovieEntity, MovieResponse>();
+            CreateMap<MovieEntity, MovieResponse>()
+                .ForMember(dst => dst.MovieId, map => map.MapFrom(src => src.Id));
         }
     }
 }

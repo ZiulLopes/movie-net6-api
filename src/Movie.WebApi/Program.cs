@@ -1,9 +1,14 @@
+using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Movie.Core.Mapping;
 using Movie.Core.Repository;
 using Movie.Core.Repository.Interface;
+using Movie.Core.Request;
 using Movie.Core.Services;
 using Movie.Core.Services.Interface;
+using Movie.Core.Validator;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +16,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 
+builder.Services.AddScoped<IValidator<MovieRequest>, MovieValidator>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
