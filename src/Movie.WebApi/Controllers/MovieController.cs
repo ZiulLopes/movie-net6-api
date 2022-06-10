@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Movie.Core.Model;
+using Movie.Core.Request;
+using Movie.Core.Response;
 using Movie.Core.Services.Interface;
 
 namespace Movie.WebApi.Controllers
@@ -10,11 +13,13 @@ namespace Movie.WebApi.Controllers
     {
         private readonly IMovieService _movieService;
         private readonly ILogger<MovieController> _logger;
+        private readonly IMapper _mapper;
 
-        public MovieController(IMovieService movieService, ILogger<MovieController> logger)
+        public MovieController(IMovieService movieService, ILogger<MovieController> logger, IMapper mapper)
         {
             _movieService = movieService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         // TODO fazer o automapper
@@ -22,6 +27,7 @@ namespace Movie.WebApi.Controllers
         public async Task<IActionResult> Get()
         {
             var movies = await _movieService.GetMovies();
+            var _movies = _mapper.Map<List<MovieResponse>>(movies);
             return Ok(movies);
         }
 
@@ -32,17 +38,20 @@ namespace Movie.WebApi.Controllers
 
             if (movie == null) return NotFound();
 
+            var _movie = _mapper.Map<MovieResponse>(movie);
             return Ok(movie);
         }
 
         [HttpPost()]
-        public async Task<IActionResult> Post([FromBody] MovieEntity movie)
+        public async Task<IActionResult> Post([FromBody] MovieRequest movie)
         {
+            var _movie = _mapper.Map<MovieEntity>(movie);
             if (movie == null) return BadRequest();
-            var (_movie, saved, message) = await _movieService.AddMovie(movie);
+            var (movieEntity, saved, message) = await _movieService.AddMovie(_movie);
             _logger.LogInformation(message);
             if (!saved) return BadRequest(message);
-            return Ok(_movie);
+            var _movieEntity = _mapper.Map<MovieResponse>(movieEntity);
+            return Ok(movieEntity);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Movie.Core.Mapping;
 using Movie.Core.Repository;
 using Movie.Core.Repository.Interface;
 using Movie.Core.Services;
@@ -18,6 +19,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MOVIEDB01")));
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 
