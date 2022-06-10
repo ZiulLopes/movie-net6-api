@@ -6,5 +6,6 @@ namespace Movie.Core.Services.Interface
     {
         Task<IEnumerable<MovieEntity>> GetMovies();
         Task<MovieEntity> GetMovieById(int id);
+        Task<(MovieEntity, bool, string)> AddMovie(MovieEntity movie);
     }
 }

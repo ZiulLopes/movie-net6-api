@@ -22,5 +22,10 @@ namespace Movie.Core.Services
         {
             return await _movieRepository.FindById(id);
         }
+
+        public async Task<(MovieEntity, bool, string)> AddMovie(MovieEntity movie)
+        {
+            return await _movieRepository.AddMovie(movie);
+        }
     }
 }

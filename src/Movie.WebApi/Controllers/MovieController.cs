@@ -34,5 +34,15 @@ namespace Movie.WebApi.Controllers
 
             return Ok(movie);
         }
+
+        [HttpPost()]
+        public async Task<IActionResult> Post([FromBody] MovieEntity movie)
+        {
+            if (movie == null) return BadRequest();
+            var (_movie, saved, message) = await _movieService.AddMovie(movie);
+            _logger.LogInformation(message);
+            if (!saved) return BadRequest(message);
+            return Ok(_movie);
+        }
     }
 }

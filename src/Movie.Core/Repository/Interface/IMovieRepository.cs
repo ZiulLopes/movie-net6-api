@@ -6,5 +6,6 @@ namespace Movie.Core.Repository.Interface
     {
         Task<IEnumerable<MovieEntity>> GetAll();
         Task<MovieEntity> FindById(int id);
+        Task<(MovieEntity, bool, string)> AddMovie(MovieEntity movie);
     }
 }
