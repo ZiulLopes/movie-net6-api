@@ -11,7 +11,7 @@ namespace Movie.Core.Mapping
         {
             CreateMap<MovieRequest, MovieEntity>();
             CreateMap<MovieEntity, MovieResponse>()
-                .ForMember(dst => dst.MovieId, map => map.MapFrom(src => src.Id));
+                .ForMember(dst => dst.movie_id, map => map.MapFrom(src => src.Id));
         }
     }
 }

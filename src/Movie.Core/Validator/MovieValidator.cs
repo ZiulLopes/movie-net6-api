@@ -9,6 +9,11 @@ namespace Movie.Core.Validator
         {
             RuleFor(m => m.MovieId).NotNull();
             RuleFor(m => m.Title).NotEmpty().NotNull();
+            RuleFor(m => m.DateAdd).NotEmpty().NotNull();
+            RuleFor(m => m.Duration).NotEmpty().NotNull();
+            RuleFor(m => m.Year).GreaterThan(0);
+            RuleFor(m => m.Description).NotEmpty().NotNull();
+            RuleFor(m => m.Rate).NotEmpty().NotNull();
         }
     }
 }

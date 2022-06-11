@@ -5,24 +5,24 @@ namespace Movie.Core.Response
     public class MovieResponse
     {
         [JsonProperty("movie_id")]
-        public int MovieId { get; set; }
+        public int movie_id { get; set; }
 
         [JsonProperty("title")]
-        public string Title { get; set; }
+        public string title { get; set; }
 
         [JsonProperty("date_add")]
-        public string DateAdd { get; set; }
+        public string date_add { get; set; }
+
+        [JsonProperty("year")]
+        public int year { get; set; }
 
         [JsonProperty("duration")]
-        public int Year { get; set; }
-
-        [JsonProperty("duration")]
-        public string Duration { get; set; }
+        public string duration { get; set; }
 
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string description { get; set; }
 
         [JsonProperty("rate")]
-        public string Rate { get; set; }
+        public string rate { get; set; }
     }
 }
