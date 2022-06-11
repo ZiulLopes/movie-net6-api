@@ -1,28 +1,28 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Movie.Core.Response
 {
     public class MovieResponse
     {
-        [JsonProperty("movie_id")]
-        public int movie_id { get; set; }
+        [JsonPropertyName("movie_id")]
+        public int MovieId { get; set; }
 
-        [JsonProperty("title")]
-        public string title { get; set; }
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
 
-        [JsonProperty("date_add")]
-        public string date_add { get; set; }
+        [JsonPropertyName("date_add")]
+        public string DateAdd { get; set; }
 
-        [JsonProperty("year")]
-        public int year { get; set; }
+        [JsonPropertyName("year")]
+        public int Year { get; set; }
 
-        [JsonProperty("duration")]
-        public string duration { get; set; }
+        [JsonPropertyName("duration")]
+        public string Duration { get; set; }
 
-        [JsonProperty("description")]
-        public string description { get; set; }
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
 
-        [JsonProperty("rate")]
-        public string rate { get; set; }
+        [JsonPropertyName("rate")]
+        public string Rate { get; set; }
     }
 }

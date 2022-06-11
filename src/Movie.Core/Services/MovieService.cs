@@ -27,5 +27,10 @@ namespace Movie.Core.Services
         {
             return await _movieRepository.AddMovie(movie);
         }
+
+        public async Task<(MovieEntity, bool, string)> UpdateMovie(MovieEntity movie, int id)
+        {
+            return await _movieRepository.UpdateMovie(movie, id);
+        }
     }
 }

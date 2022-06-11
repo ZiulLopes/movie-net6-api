@@ -17,7 +17,10 @@ namespace Movie.WebApi.Controllers
         private readonly IMapper _mapper;
         private readonly IValidator<MovieRequest> _validator;
 
-        public MovieController(IMovieService movieService, ILogger<MovieController> logger, IMapper mapper, IValidator<MovieRequest> validator)
+        public MovieController(IMovieService movieService,
+            ILogger<MovieController> logger,
+            IMapper mapper,
+            IValidator<MovieRequest> validator)
         {
             _movieService = movieService;
             _logger = logger;
@@ -25,7 +28,6 @@ namespace Movie.WebApi.Controllers
             _validator = validator;
         }
 
-        // TODO fazer o automapper
         [HttpGet()]
         public async Task<IActionResult> Get()
         {
@@ -49,15 +51,37 @@ namespace Movie.WebApi.Controllers
         public async Task<IActionResult> Post([FromBody] MovieRequest movie)
         {
             var validator = await _validator.ValidateAsync(movie);
-
             if (!validator.IsValid) return BadRequest(string.Join(',', validator.Errors.Select(v => v.ErrorMessage)));
 
             var _movie = _mapper.Map<MovieEntity>(movie);
             if (movie == null) return BadRequest();
+
             var (movieEntity, saved, message) = await _movieService.AddMovie(_movie);
             _logger.LogInformation(message);
+
             if (!saved) return BadRequest(message);
             var _movieEntity = _mapper.Map<MovieResponse>(movieEntity);
+
+            return Ok(_movieEntity);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put([FromBody] MovieRequest movie, [FromRoute] int id)
+        {
+            var validator = await _validator.ValidateAsync(movie);
+            if (!validator.IsValid) return BadRequest(string.Join(',', validator.Errors.Select(v => v.ErrorMessage)));
+
+            if ((await _movieService.GetMovieById(id)) == null) return NotFound();
+            
+            if (movie == null) return BadRequest();
+            var _movie = _mapper.Map<MovieEntity>(movie);
+
+            var (movieEntity, saved, message) = await _movieService.UpdateMovie(_movie, id);
+            _logger.LogInformation(message);
+
+            if (!saved) return BadRequest(message);
+            var _movieEntity = _mapper.Map<MovieResponse>(movieEntity);
+
             return Ok(_movieEntity);
         }
     }
