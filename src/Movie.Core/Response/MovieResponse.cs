@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Movie.Core.Response
 {
@@ -14,5 +9,20 @@ namespace Movie.Core.Response
 
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        [JsonProperty("date_add")]
+        public string DateAdd { get; set; }
+
+        [JsonProperty("duration")]
+        public int Year { get; set; }
+
+        [JsonProperty("duration")]
+        public string Duration { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("rate")]
+        public string Rate { get; set; }
     }
 }
