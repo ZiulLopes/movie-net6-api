@@ -61,5 +61,19 @@ namespace Movie.Core.Repository
                 return await Task.Run(() => (movie, false, $"error on update movie: {ex.Message}"));
             }
         }
+
+        public async Task<bool> Delete(MovieEntity movie)
+        {
+            try
+            {
+                _dbContext.Remove(movie);
+                await _dbContext.SaveChangesAsync();
+                return await Task.Run(() => true);
+            }
+            catch (Exception ex)
+            {
+                return await Task.Run(() => false);
+            }
+        }
     }
 }

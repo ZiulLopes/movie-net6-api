@@ -32,5 +32,10 @@ namespace Movie.Core.Services
         {
             return await _movieRepository.UpdateMovie(movie, id);
         }
+
+        public async Task<bool> Remove(MovieEntity movie)
+        {
+            return await _movieRepository.Delete(movie);
+        }
     }
 }
