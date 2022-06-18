@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services DI
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IMovieSQLRepository, MovieSQLRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IValidator<MovieRequest>, MovieValidator>();
 

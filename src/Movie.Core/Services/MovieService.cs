@@ -7,10 +7,12 @@ namespace Movie.Core.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IMovieSQLRepository _movieSQLRepository;
 
-        public MovieService(IMovieRepository movieRepository)
+        public MovieService(IMovieRepository movieRepository, IMovieSQLRepository movieSQLRepository)
         {
             _movieRepository = movieRepository;
+            _movieSQLRepository = movieSQLRepository;
         }
 
         public async Task<IEnumerable<MovieEntity>> GetMovies()
@@ -36,6 +38,11 @@ namespace Movie.Core.Services
         public async Task<bool> Remove(MovieEntity movie)
         {
             return await _movieRepository.Delete(movie);
+        }
+
+        public async Task<IEnumerable<MovieEntity>> GetSQLMovies()
+        {
+            return await _movieSQLRepository.GetAll();
         }
     }
 }

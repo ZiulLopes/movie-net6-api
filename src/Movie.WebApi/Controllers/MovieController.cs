@@ -29,10 +29,10 @@ namespace Movie.WebApi.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] int page = 1,[FromQuery] int rows = 10)
         {
             var movies = await _movieService.GetMovies();
-            var _movies = _mapper.Map<List<MovieResponse>>(movies);
+            var _movies = _mapper.Map<List<MovieResponse>>(movies.Skip((page - 1) * rows).Take(rows));
             return Ok(_movies);
         }
 
@@ -45,6 +45,14 @@ namespace Movie.WebApi.Controllers
 
             var _movie = _mapper.Map<MovieResponse>(movie);
             return Ok(_movie);
+        }
+
+        [HttpGet("moviebysql")]
+        public async Task<IActionResult> GetMovieBySql([FromQuery] int page = 1, [FromQuery] int rows = 10)
+        {
+            var movies = await _movieService.GetMovies();
+            var _movies = _mapper.Map<List<MovieResponse>>(movies.Skip((page - 1) * rows).Take(rows));
+            return Ok(_movies);
         }
 
         [HttpPost()]
