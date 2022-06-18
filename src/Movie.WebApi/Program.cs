@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Movie.Core.Config;
 using Movie.Core.Mapping;
 using Movie.Core.Repository;
 using Movie.Core.Repository.Interface;
@@ -22,6 +23,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var jwtConfig = new JwtBearerTokenSettings();
+builder.Configuration.Bind("JwtBearerTokenSettings", jwtConfig);
+
+builder.Services.AddSingleton(jwtConfig);
 
 builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MOVIEDB01")));
 
