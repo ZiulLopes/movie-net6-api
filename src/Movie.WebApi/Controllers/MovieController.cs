@@ -50,7 +50,7 @@ namespace Movie.WebApi.Controllers
         [HttpGet("moviebysql")]
         public async Task<IActionResult> GetMovieBySql([FromQuery] int page = 1, [FromQuery] int rows = 10)
         {
-            var movies = await _movieService.GetMovies();
+            var movies = await _movieService.GetSQLMovies();
             var _movies = _mapper.Map<List<MovieResponse>>(movies.Skip((page - 1) * rows).Take(rows));
             return Ok(_movies);
         }

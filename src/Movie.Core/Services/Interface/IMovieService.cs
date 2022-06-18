@@ -10,5 +10,6 @@ namespace Movie.Core.Services.Interface
         Task<(MovieEntity, bool, string)> AddMovie(MovieEntity movie);
         Task<(MovieEntity, bool, string)> UpdateMovie(MovieEntity movie, int id);
         Task<bool> Remove(MovieEntity movie);
+        Task<IEnumerable<MovieEntity>> GetSQLMovies();
     }
 }
