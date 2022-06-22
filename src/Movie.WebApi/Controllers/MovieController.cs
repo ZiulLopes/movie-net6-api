@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movie.Core.Model;
 using Movie.Core.Request;
@@ -29,6 +30,7 @@ namespace Movie.WebApi.Controllers
         }
 
         [HttpGet()]
+        [Authorize]
         public async Task<IActionResult> Get([FromQuery] int page = 1,[FromQuery] int rows = 10)
         {
             var movies = await _movieService.GetMovies();
@@ -37,6 +39,7 @@ namespace Movie.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             var movie = await _movieService.GetMovieById(id);
@@ -56,6 +59,7 @@ namespace Movie.WebApi.Controllers
         }
 
         [HttpPost()]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] MovieRequest movie)
         {
             var validator = await _validator.ValidateAsync(movie);
@@ -74,6 +78,7 @@ namespace Movie.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody] MovieRequest movie, [FromRoute] int id)
         {
             var validator = await _validator.ValidateAsync(movie);
@@ -94,6 +99,7 @@ namespace Movie.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var movie = await _movieService.GetMovieById(id);
